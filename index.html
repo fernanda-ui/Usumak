@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usumak</title>
+    <link rel="icon" href="Recursos/logo.png" type="image/x-icon"> 
+    <link rel="stylesheet" href="styles.css">   
+</head>
+<body>
+
+    <!-- Carpeta en el escritorio -->
+    <div id="desktop">
+        <div id="folder" class="folder" oncontextmenu="openContextMenu(event)">
+            <img src="Recursos/carpeta.png" alt="Carpeta">
+            <p id="folderName">Carpeta</p>
+            <input type="text" id="renameInput" class="rename-input" onblur="applyRename()" />
+        </div>
+    </div>
+
+    <!-- Menú contextual de clic derecho -->
+    <div id="contextMenu" class="context-menu">
+        <ul>
+            <li>Copiar</li>
+            <li>Pegar</li>
+            <li onclick="renameFolder()">Cambiar nombre</li>
+            <li>Propiedades</li>
+            <li onclick="deleteFolder()">Eliminar</li>
+        </ul>
+    </div>
+
+    <!--Barra de Tareas-->
+    <div id="taskbar" class="barra">
+
+        <button id="startButton" class="bt-inicio" onclick="toggleStartMenu()">
+            <img src="Recursos/logo.png" alt="Windows">
+        </button>
+
+        <label for="" class="buscar-bar"> <img src="Recursos/lupita.png" alt="">
+            <input type="text" placeholder="Buscar">
+        </label>
+
+        <div>
+            <div class="taskbar">
+                <div class="taskbar-icons">
+                  <span class="icon icons" id="battery">🔋</span>
+                  <span class="icon icons" id="wifi">📶</span>
+                  <span class="icon icons" id="volume">🔊</span>
+                  <span class="icon datetime" id="datetime" onclick="togglePopup()">🕒</span>
+                </div>
+              </div>
+            
+              <!-- Ventana emergente -->
+              <div class="popup" id="popup">
+                <div class="popup-header">
+                  <div class="control" id="wifi-control" onclick="toggleControl(this)">📶 WiFi</div>
+                  <div class="control" id="bluetooth-control" onclick="toggleControl(this)">🟦 Bluetooth</div>
+                  <div class="control" id="airplane-control" onclick="toggleControl(this)">✈️ Modo avión</div>
+                </div>
+                <div class="popup-body">
+                  <div>
+                    <label for="brightness">Brillo:</label>
+                    <input type="range" id="brightness" min="0" max="100" value="50">
+                  </div>
+                  <div>
+                    <label for="volume">Sonido:</label>
+                    <input type="range" id="volume" min="0" max="100" value="50">
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    
+
+    <!--Menu del inicio-->
+    <div id="startMenu" class="start-menu">
+
+        <!--Input de busqueda-->
+        <section class="section-1">
+        <label>
+            <input type="text" id="searchBox" class="inp-menu" placeholder="Buscar aplicaciones, configuraciones y documentos" oninput="searchApp()"> 
+            <img src="Recursos/lupita.png" alt="Buscar" class="lupita">
+        </label>
+
+
+        <!--Seccion de aplicaciones ancladas-->
+        <div class="subtitle">
+            <p>Anclado</p>
+            <button>Todas las aplicaciones ></button>
+        </div>
+
+        <div id="appList" class="lis">
+            <div class="app app1" data-name="Papelera" onclick="openApp('papelera')">
+                <img src="Recursos/papelera.png" alt="Papelera" class="papelera"> 
+                <p>Papelera</p>
+            </div>
+            <div class="app app2" data-name="Configuracion" onclick="openApp('configuracion')">
+                <img src="Recursos/confi.png" alt="Configuración" class="confi">
+                <p>Configuración</p>
+            </div>
+            <div class="app app3" data-name="Word" onclick="openApp('word')">
+                <img src="Recursos/word-removebg-preview.png" alt="Word" class="word"> 
+                <p>Word</p>
+            </div>
+            <div class="app app4" data-name="Excel" onclick="openApp('excel')">
+                <img src="Recursos/excel.png" alt="Excel" class="excel">
+                <p>Excel</p>
+            </div>
+            <div class="app app5" data-name="PowerPoint" onclick="openApp('power')">
+                <img src="Recursos/power.png" alt="PowerPoint" class="power">
+                <p>PowerPoint</p>
+            </div>
+        </div>
+
+        <div id="appList" class="lis">
+            <div class="app app6" data-name="explorer" onclick="openApp('explorer')">
+                <img src="Recursos/explorador.webp" alt="Explorador de archivos" class="explo">
+                <p>Explorador de <br>archivos</p>
+            </div>
+            <div class="app app7" data-name="chrome" onclick="openApp('chrome')">
+                <img src="Recursos/Chrome-Logo-2011-removebg-preview.png" alt="Chrome" class="chrome">
+                <p>Chrome</p>
+            </div>
+            <div class="app app8" data-name="edge" onclick="openApp('edge')">
+                <img src="Recursos/edge.png" alt="Edge" class="edge">
+                <p>Edge</p>
+            </div>
+            <div class="app app9" data-name="visual" onclick="openApp('visual')">
+                <img src="Recursos/visual.png" alt="VS Code" class="visual"> 
+                <p>VS Code</p>
+            </div>
+            <div class="app app10" data-name="discord" onclick="openApp('discord')">
+                <img src="Recursos/discord.png" alt="Discord" class="discord">
+                <p>Discord</p>
+            </div>
+        </div>
+
+        <div id="appList" class="lis">
+            <!-- Más aplicaciones -->
+            <div class="app app11" data-name="whatsapp" onclick="openApp('whatsapp')">
+                <img src="Recursos/wat.png" alt="WhatsApp" class="wat">
+                <p>WhatsApp</p>
+            </div>
+            <div class="app app12" data-name="notas" onclick="openApp('notas')">
+                <img src="Recursos/notas.png" alt="Notas" class="notas">
+                <p>Notas</p>
+            </div>
+            <div class="app app13" data-name="onedrive" onclick="openApp('onedrive')">
+                <img src="Recursos/onedrive.png" alt="OneDrive" class="one">
+                <p>OneDrive</p>
+            </div>
+            <div class="app app14" data-name="youtube" onclick="openApp('youtube')">
+                <img src="Recursos/youtube.png" alt="YouTube" class="yout">
+                <p>YouTube</p>
+            </div>
+            <div class="app app15" data-name="calculadora" onclick="openApp('calculadora')">
+                <img src="Recursos/calc.png" alt="Calculadora" class="calc">
+                <p>Calculadora</p>
+            </div>
+        </div>
+
+
+        <!--Seccion de pie del menu de inicio-->
+        <div class="pag-pie">
+            <div class="fot-nom">
+                <img src="Recursos/use.jpg" alt="">
+                <p>Luisa Fernanda</p>
+            </div>
+
+            <div class="apagado">
+                <img src="Recursos/apagado.webp" alt="" onclick="togglePowerMenu()">
+            </div>
+        </div>
+        
+        <!--Ventanita de apagado-->
+        <div id="powerMenu" class="power-menu">
+            <div class="power-option" onclick="powerAction('bloquear')">
+                <!-- Icono de Bloquear -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="black"><path d="M12 12V6c-1.1 0-2 .9-2 2v4H8v2h2v4h4v-4h2v-2h-2V8c0-1.1-.9-2-2-2z"/></svg>
+                <p>Bloquear</p>
+            </div>
+            <div class="power-option" onclick="powerAction('suspender')">
+                <!-- Icono de Suspender -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="black"><path d="M12 2a1 1 0 011 1v9a1 1 0 01-2 0V3a1 1 0 011-1zm-5.83 5.41a8.12 8.12 0 00-.3 8.18A8.02 8.02 0 0012 21a8.02 8.02 0 006.13-3.41 8.12 8.12 0 00-.3-8.18L16.24 10.8a6.14 6.14 0 01.27 6.29A6 6 0 0112 19a6 6 0 01-4.5-2.41 6.14 6.14 0 01.27-6.29L6.17 7.41z"/></svg>
+                <p>Suspender</p>
+            </div>
+            <div class="power-option" onclick="powerAction('apagar')">
+                <!-- Icono de Apagar -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="black"><path d="M13 3h-2v10h2V3zM6.22 8.22a7.008 7.008 0 00-1.48 8.36 7.007 7.007 0 0012.52 0 7.008 7.008 0 00-1.48-8.36l-1.41 1.41A5.007 5.007 0 0112 19a5.007 5.007 0 01-3.89-9.37L6.22 8.22z"/></svg>
+                <p>Apagar</p>
+            </div>
+            <div class="power-option" onclick="powerAction('reiniciar')">
+                <!-- Icono de Reiniciar -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="black"><path d="M12 4V1l-5 5 5 5V7c2.76 0 5 2.24 5 5 0 2.76-2.24 5-5 5a4.992 4.992 0 01-4.24-2.25l-1.53 1.53A6.978 6.978 0 0012 19c3.87 0 7-3.13 7-7s-3.13-7-7-7z"/></svg>
+                <p>Reiniciar</p>
+            </div>
+        </div>
+      </section>
+
+      <section class="section-2">
+        <div class="notifications-section">
+            <div class="notifications-header">
+              <h2>Notificaciones</h2>
+              <button id="clearAll">Borrar todo</button>
+            </div>
+            <div class="notifications-container">
+              <div class="notification">
+                <div class="notification-content">
+                  <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp">
+                  <span>Nueva notificación de WhatsApp</span>
+                </div>
+                <button class="close-btn">&times;</button>
+              </div>
+              <div class="notification">
+                <div class="notification-content">
+                  <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+                  <span>Nueva notificación de YouTube</span>
+                </div>
+                <button class="close-btn">&times;</button>
+              </div>
+            </div>
+          </div>
+               
+      </section>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+

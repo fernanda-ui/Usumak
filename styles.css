@@ -1,0 +1,801 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    height: 100vh;
+    position: relative;
+    background-image: url(Recursos/fondo.jpg);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    
+}
+
+/*Estilos de la carpeta */
+.folder {
+    width: 8rem;
+    text-align: center;
+    position: absolute;
+    cursor: pointer;
+    top: 1rem;
+}
+
+.folder img {
+    width: 5rem;
+}
+
+.folder p {
+    font-size: 1.2rem;
+    color: #ddd;
+}
+
+.configuracion img {
+    position: relative;
+    top: 5rem;
+}
+
+/*Menu contextual */
+.context-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0.4rem;
+    z-index: 10;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.context-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu ul li {
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+}
+
+.context-menu ul li:hover {
+    background-color: #f0f0f0;
+}
+
+/*Campo de entrada para cambiar el nombre */
+.rename-input {
+    display: none;
+    width: 8rem;
+    border: none;
+    background-color: transparent;
+    font-size: 1.4rem;
+    text-align: center;
+    outline: none;
+}
+
+/*Barra de tareas*/
+#taskbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 41%;
+    height: 7rem;
+    position: fixed;
+    bottom: 2rem;
+    left: 40rem;
+    backdrop-filter: blur(10px); 
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.3); 
+    z-index: 10;
+    border-radius: 7rem;
+    animation-name: change-color;
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes change-color {
+    from {
+        background: rgba(61, 5, 5, 0.897);
+
+    }
+
+    to {
+        background: rgba(7, 5, 5, 0.452);
+    }
+}
+
+/*clase de barra de tareas*/
+.barra button {
+    background: none;
+}
+
+/*clase del boton de inicio*/
+.bt-inicio {
+    border: none;
+    cursor: pointer;
+   
+}
+
+.bt-inicio img{
+    width: 7rem;
+    position: relative;
+    top: 0.2rem;
+    left: 1rem;
+    
+}
+
+.bt-inicio img:hover {
+background-color: rgba(255, 255, 255, 0.76);
+border-radius: 50%;
+padding: 0.5rem;
+
+}
+
+/*barra donde esta la hora*/
+.taskbar {
+    position: fixed;
+    bottom: 1.3rem;
+    right: 2rem;
+    width: 15%;
+    height: 4rem;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    
+  }
+
+  .taskbar .datetime {
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .datetime:hover {
+    background-color: #924858cc;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+  }
+
+  .taskbar .icons {
+    font-size: 1.5rem;
+    position: relative;
+    top: 0.5rem;
+  }
+  
+  .taskbar-icons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .icon {
+    cursor: pointer;
+  }
+  
+  /* Ventana emergente de la hora*/
+  .popup {
+    position: fixed;
+    bottom: 50px;
+    right: 10px;
+    width: 25rem;
+    background: #ffffff96;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+  }
+
+
+/* Personalización del slider */
+input[type="range"] {
+    appearance: none; 
+  -webkit-appearance: none; 
+    width: 100%;
+    height: 8px;
+    background: #ccc; 
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+  }
+  
+  /* Cambiar el color de la barra llena para navegadores basados en WebKit (Chrome, Edge, Safari) */
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: #ccc; /* Color del fondo */
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #350404; 
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  /*color de la barra llena en WebKit */
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #814141 0%, #df6767 var(--slider-value), #ccc var(--slider-value), #ccc 100%);
+  }
+  
+  input[type="range"]:active::-webkit-slider-thumb {
+    background: #9b4f4f; 
+  }
+  
+
+  
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #5f1616;
+  }
+  
+  .control {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    transition: background 0.3s;
+  }
+  
+  .control.active {
+    background: #d4d6d8d8;
+    color: rgb(68, 9, 9);
+  }
+  
+  .popup-body {
+    padding: 10px;
+  }
+  
+  .popup-body label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+/*id Menú de Inicio*/
+#startMenu {
+    display: flex;
+    position: fixed;
+    bottom: 11rem;
+    left: 25rem;
+    width: 90rem;
+    height: 50rem;
+    backdrop-filter: blur(10px); 
+    padding: 3rem;
+    opacity: 0;
+    visibility: hidden;  
+    transform: translateY(20px); 
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s; 
+    border-radius: 1rem;
+    background: rgba(7, 5, 5, 0.288);
+
+}
+
+
+
+#startMenu.show {
+    opacity: 1;
+    visibility: visible;  
+    transform: translateY(0); 
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+
+.section-1 {
+    width: 80%;
+}
+
+.buscar-bar {
+    position: relative;
+    bottom: 1rem;
+}
+
+.buscar-bar img {
+    width: 2rem;
+    position: relative;
+    left: 2.6rem;
+    top: 0.5rem;
+    
+}
+
+.buscar-bar input {
+    width: 25rem;
+    height: 3rem;
+    border-radius: 2rem;
+    border: none;
+    padding-left: 3rem;
+    outline: none;
+    margin-right: 21rem;
+    margin-top: 1.5rem;
+    
+}
+
+/*boton de buscar*/
+#searchBox {
+    width: 78%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(170, 166, 166, 0.623) ;
+    border-radius: 3rem;
+    padding-left: 5rem;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.inp-menu::placeholder {
+    color: rgba(255, 255, 255, 0.616);
+}
+
+/*clase de la imagen de la lupita*/
+.lupita {
+    width: 2rem;
+    position: relative;
+    right: 46rem;
+    top: 0.5rem;
+}
+
+/*clase de los titulos dentro del menu*/
+.subtitle {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+
+}
+
+.subtitle p {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+}
+
+.subtitle button {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ddd;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    left: 25rem;
+}
+
+.section-1 {
+    width: 100%;
+}
+
+
+.app img {
+    width: 5.5rem;
+}
+
+/*clase en comun de los iconos*/
+.app {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    cursor: pointer;
+ 
+    
+}
+
+/*clase general donde estan los iconos de las aplicaciones*/
+.lis {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+  gap: 1rem; 
+  
+    
+    
+}
+
+.lis .papelera {
+    width: 7rem;
+}
+
+.app1 p {
+    font-size: 1.2rem;
+    position: relative;
+    left: 1.2rem;
+    bottom: 1rem;
+    color: white;
+
+}
+
+.lis .confi {
+    width: 3.8rem;
+    position: relative;
+    top: 0.7rem;
+    left: 1.6rem;
+}
+
+.app2 p {
+    font-size: 1.2rem;
+    position: relative;
+    top: 0.4rem;
+    color: white;
+
+
+}
+
+.lis .word {
+    width: 5rem;
+    position: relative;
+    top: 0.7rem;
+}
+
+.app3 p {
+    font-size: 1.2rem;
+    position: relative;
+    top: 0.4rem;
+    left: 1rem;
+    color: white;
+}
+
+.lis .excel {
+    width: 5.8rem;
+    position: relative;
+    top: 1rem;
+    right: 2rem;
+}
+
+.app4 p {
+    font-size: 1.2rem;
+    position: relative;
+    top: 0.9rem;
+    color: white;
+
+}
+
+.lis .power {
+    width: 6rem;
+    position: relative;
+    top: 0.8rem;
+    right: 3.2rem;
+}
+
+.app5 p {
+    font-size: 1.2rem;
+    position: relative;
+    top: 0.8rem;
+    right: 2.9rem;
+    color: white;
+
+}
+
+.lis .explo {
+    width: 3.5rem;
+    position: relative;
+    left: 2rem;
+}
+
+.app6 p {
+    font-size: 1.2rem;
+    text-align: center;
+    color: white;
+
+}
+
+.lis .chrome {
+    width: 3.7rem;
+    position: relative;
+    left: 1.7rem;
+    
+}
+
+.app7 p {
+    font-size: 1.2rem;
+    position: relative;
+    bottom: 0.4rem;
+    left: 1.4rem;
+    color: white;
+
+
+}
+
+.lis .edge {
+    width: 5.4rem;
+}
+
+.app8 p {
+    font-size: 1.2rem;
+    position: relative;
+    left: 1.4rem;
+    bottom: 0.1rem;
+    color: white;
+
+    
+}
+
+.lis .visual {
+    width: 3.4rem;
+    position: relative;
+    right: 0.5rem;
+}
+
+.app9 p {
+    font-size: 1.2rem;
+    position: relative;
+    right: 1rem;
+    color: white;
+
+}
+
+.lis .discord {
+    width: 4.2rem;
+    position: relative;
+    right: 2.1rem;
+}
+
+.app10 p {
+    font-size: 1.2rem;
+    position: relative;
+    top: 0.2rem;
+    right: 1.9rem;
+    color: white;
+
+}
+
+.lis .wat {
+    width: 3.2rem;
+    position: relative;
+    left: 2rem;
+}
+
+.app11 p {
+    font-size: 1.2rem;
+    position: relative;
+    left: 1rem;
+    color: white;
+
+}
+
+.lis .notas {
+    width: 4rem;
+    position: relative;
+    left: 1.6rem;
+    bottom: 0.6rem;
+}
+
+.app12 p {
+    font-size: 1.2rem;
+    position: relative;
+    left: 2rem;
+    bottom: 1.3rem;
+    color: white;
+
+}
+
+.lis .one {
+    width: 4rem;
+    position: relative;
+    left: 0.8rem;
+    top: 0.3rem;
+}
+
+.app13 p {
+    font-size: 1.2rem;
+    position: relative;
+    left: 0.3rem;
+    top: 0.9rem;
+    color: white;
+
+}
+
+.lis .yout {
+    width: 3.7rem;
+    position: relative;
+    right: 0.3rem;
+    bottom: 0.2rem;
+}
+
+.app14 p {
+    font-size: 1.2rem;
+    position: relative;
+    right: 0.7rem;
+    bottom: 0.4rem;
+    color: white;
+
+}
+
+.lis .calc {
+    width: 3.2rem;
+    position: relative;
+    right: 1.6rem;
+    top: 0.2rem;
+}
+
+.app15 p {
+    font-size: 1.2rem;
+    position: relative;
+    right: 2.8rem;
+    top: 0.2rem;
+    color: white;
+
+}
+
+.section-2 {
+    width: 40%;
+}
+
+.notifications-section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+  }
+
+  .notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .notifications-header h2 {
+    margin: 0;
+    color: #cfcbcb;
+    font-size: 1.1rem;
+  }
+
+  .notifications-header button {
+    background-color: #81767675;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+
+  .notifications-header button:hover {
+    background-color: #350c0c;
+  }
+
+  .notifications-container {
+    overflow-y: auto;
+    flex: 1; 
+  }
+
+  .notification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #504d4d49;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .notification:hover {
+    background-color: #f0f0f09f;
+  }
+
+  .notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .notification-content img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .notification-content span {
+    font-size: 1.4rem;
+    color: #d4cece;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+  }
+
+  .close-btn:hover {
+    color: #161414;
+  }
+
+/*clas de la seccion del usuario y apagar*/
+.pag-pie {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(248, 248, 248, 0.199);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0 0 1rem 1rem;
+    height: 6rem;
+    border-top: 1px solid rgba(226, 218, 218, 0.541);
+     
+}
+
+.apagado img {
+    width: 1.5rem;
+    position: relative;
+    right: 5.5rem;
+    top: 2rem;
+    cursor: pointer;
+}
+
+.apagado img:hover {
+    background-color: rgba(129, 125, 125, 0.411);
+    border-radius: 50%;
+    
+}
+
+/*clase de donde estan la foto y el nombre de usuario*/
+.fot-nom {
+display: flex;
+position: relative;
+left: 5rem;
+cursor: pointer;
+}
+
+
+.fot-nom img {
+    border-radius: 50%;
+    width: 3.7rem;
+    height: 3.7rem;
+    position: relative;
+    top: 1rem;
+}
+
+.fot-nom p {
+    font-size: 1.4rem;
+    position: relative;
+    top: 1.7rem;
+    left: 0.8rem;
+    color: #ddd;
+    font-weight: bold;
+}
+
+
+/*ventana de opciones*/
+.power-menu {
+    display: none; 
+    position: fixed;
+    bottom: 70px; 
+    right: 20px;
+    width: 150px;
+    background-color: rgba(255, 255, 255, 0.719);
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 200;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/*clas de cada opción*/
+.power-option {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.2s ease;
+}
+
+.power-option p {
+    font-size: 1.2rem;
+    position: relative;
+    left: 1rem;
+}
+
+.power-option:hover {
+    background-color: rgba(255, 255, 255, 0.767);
+}
